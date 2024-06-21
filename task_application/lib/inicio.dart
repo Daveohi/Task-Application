@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:task_application/dialog_widget.dart';
 import 'package:task_application/task_widget.dart';
 
@@ -86,52 +87,45 @@ class _InicioState extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfafafafa),
+      // backgroundColor: const Color(0xfafafafa),
       floatingActionButton: _isFabExtended
           ? Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                FloatingActionButton.extended(
+                SpeedDial(
+                  animatedIcon: AnimatedIcons.add_event,
+                  animatedIconTheme: const IconThemeData(size: 22.0),
                   backgroundColor: const Color(0xFF6C63FF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  onPressed: () {
-                    createNewTask();
-                    // Add your onPressed code here!
-                  },
                   foregroundColor: Colors.white,
-                  icon: const Icon(Icons.add_task_rounded),
-                  label: const Text('Crear tarea'),
-                ),
-                const SizedBox(height: 10),
-                FloatingActionButton.extended(
-                  backgroundColor: const Color(0xFF6C63FF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  onPressed: () {
-                    // Add your onPressed code here!
-                  },
-                  foregroundColor: Colors.white,
-                  icon: const Icon(
-                    Icons.description_rounded,
-                  ),
-                  label: const Text('Crear proyecto'),
-                ),
-                const SizedBox(height: 10),
-                FloatingActionButton(
-                  backgroundColor: const Color(0xFF6C63FF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  onPressed: _toggleFab,
-                  foregroundColor: Colors.white,
-                  child: const Icon(Icons.close),
+                  visible: _isFabExtended,
+                  curve: Curves.bounceIn,
+                  children: [
+                    SpeedDialChild(
+                      child: const Icon(Icons.description_outlined),
+                      backgroundColor: const Color(0xFF6C63FF),
+                      foregroundColor: Colors.white,
+                      label: 'Crear proyecto',
+                      labelBackgroundColor: Colors.white,
+                      labelStyle: const TextStyle(fontSize: 18.0),
+                      onTap: () {},
+                    ),
+                    SpeedDialChild(
+                      child: const Icon(Icons.add_task_rounded),
+                      backgroundColor: const Color(0xFF6C63FF),
+                      foregroundColor: Colors.white,
+                      label: 'Crear tarea',
+                      labelBackgroundColor: Colors.white,
+                      labelStyle: const TextStyle(fontSize: 18.0),
+                      onTap: () {
+                        createNewTask();
+                      },
+                    ),
+                  ],
                 ),
               ],
             )
           : FloatingActionButton(
+            
               backgroundColor: const Color(0xFF6C63FF),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
