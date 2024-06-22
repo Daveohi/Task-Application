@@ -44,6 +44,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
             color: Colors.black,
             fontSize: 20,
             fontWeight: FontWeight.bold,
+            height: BorderSide.strokeAlignCenter,
           ),
         ),
         // backgroundColor: Colors.white,
@@ -70,6 +71,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         onTap: (index) => _changeTab(index),
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.grey,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
           BottomNavigationBarItem(

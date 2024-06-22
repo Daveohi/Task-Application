@@ -25,31 +25,18 @@ class _InicioState extends State<Inicio> {
     ['Car Rental Website', 'Landing Page', false],
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPersistentFrameCallback((_) {
-      // _updateTaskCounts();
-    });
-  }
-
-  // void _updateTaskCounts() {
-  //   widget.onUpdateTotalTasks(taskList.length);
-  //   widget.onUpdateCompletedTasks(
-  //       taskList.where((taskList) => taskList[2]).length);
-  // }
-
   void cancelTask() {
     Navigator.pop(context);
   }
 
+  int get completedTasks => taskList.where((task) => task[2]).length;
+
   void taskCompleted(bool? value, int index) {
     setState(() {
       taskList[index][2] = !taskList[index][2];
-      WidgetsBinding.instance.addPersistentFrameCallback((_) {
-        // _updateTaskCounts();
-      });
+      
     });
+    // return taskCount;
   }
 
   void saveNewTask() {
@@ -57,9 +44,6 @@ class _InicioState extends State<Inicio> {
       taskList.add([taskController.text, subtitleController.text, false]);
       taskController.clear();
       subtitleController.clear();
-      WidgetsBinding.instance.addPersistentFrameCallback((_) {
-        // _updateTaskCounts();
-      });
     });
     Navigator.pop(context);
   }
@@ -114,178 +98,175 @@ class _InicioState extends State<Inicio> {
         ],
       ),
       backgroundColor: const Color(0xfafafafa),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Card(
-                  elevation: 4,
-                  color: Colors.white,
-                  margin: const EdgeInsets.only(
-                      left: 14.0, top: 10.0, bottom: 15.0),
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxWidth: double.infinity,
-                      maxHeight: 150,
-                    ),
-                    padding: const EdgeInsets.all(16),
-                    width: (MediaQuery.of(context).size.width / 2) - 24,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(
-                          CupertinoIcons.gift_fill,
-                          color: Colors.red,
-                          size: 30,
-                          shadows: [
-                            BoxShadow(
-                              color: Colors.black,
-                              blurRadius: 5.0,
-                              spreadRadius: 5.0,
-                              offset: Offset(1.0, 1.0),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 1.0, top: 20.0, right: 40, bottom: 3.0),
-                          child: Text.rich(
-                            TextSpan(
-                              children: [
-                                const TextSpan(
-                                  text: 'Nuevas toreas \n',
-                                  style: TextStyle(
-                                    color: Colors.black38,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: '0',
-                                  style: const TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 4,
-                  color: Colors.white,
-                  margin: const EdgeInsets.only(
-                      right: 14.0, top: 10.0, bottom: 15.0),
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      maxWidth: double.infinity,
-                      maxHeight: 150,
-                    ),
-                    padding: const EdgeInsets.all(16),
-                    width: (MediaQuery.of(context).size.width / 2) - 24,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(
-                          CupertinoIcons.headphones,
-                          color: Colors.red,
-                          size: 30,
-                          shadows: [
-                            BoxShadow(
-                              color: Colors.black,
-                              blurRadius: 5.0,
-                              spreadRadius: 5.0,
-                              offset: Offset(1.0, 1.0),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 1.0, top: 20.0, right: 40, bottom: 3.0),
-                          child: Text.rich(
-                            TextSpan(
-                              children: [
-                                const TextSpan(
-                                  text: 'Proyectos \n',
-                                  style: TextStyle(
-                                    color: Colors.black38,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: '0',
-                                  style: const TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+      body: Stack(
+        clipBehavior: Clip.antiAlias,
+        
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 220.0),
+            child: ListView.builder(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
+              shrinkWrap: true,
+              itemCount: taskList.length,
+              itemBuilder: (context, index) {
+                return TaskWidget(
+                  taskName: taskList[index][0],
+                  subTitle: taskList[index][1],
+                  taskCompleted: taskList[index][2],
+                  onchanged: (value) => taskCompleted(value, index),
+                  onDelete: (context) {
+                    setState(() {
+                      taskList.removeAt(index);
+                    });
+                  },
+                );
+              },
             ),
-            const SizedBox(height: 5.0),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    const SizedBox(width: 4),
-                    DotsIndicator(
-                      position: 0,
-                      dotsCount: 1,
-                      decorator: const DotsDecorator(),
-                    ),
-                    const Text(
-                      'Tareas del dia',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
+          ),
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Card(
+                    elevation: 4,
+                    color: Colors.white,
+                    margin: const EdgeInsets.only(
+                        left: 14.0, top: 10.0, bottom: 15.0),
+                    child: Container(
+                      constraints: const BoxConstraints(
+                        maxWidth: double.infinity,
+                        maxHeight: 150,
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      width: (MediaQuery.of(context).size.width / 2) - 24,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            CupertinoIcons.gift_fill,
+                            color: Colors.red,
+                            size: 30,
+                            shadows: [
+                              BoxShadow(
+                                color: Colors.black,
+                                blurRadius: 5.0,
+                                spreadRadius: 5.0,
+                                offset: Offset(1.0, 1.0),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 1.0, top: 20.0, right: 40, bottom: 3.0),
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: 'Nuevas toreas \n',
+                                    style: TextStyle(
+                                      color: Colors.black38,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: taskList.length.toString(),
+                                    style: const TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  
-                  child: ListView.builder(
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.manual,
-                    shrinkWrap: true,
-                    itemCount: taskList.length,
-                    itemBuilder: (context, index) {
-                      return TaskWidget(
-                        taskName: taskList[index][0],
-                        subTitle: taskList[index][1],
-                        taskCompleted: taskList[index][2],
-                        onchanged: (value) => taskCompleted(value, index),
-                        onDelete: (context) {
-                          setState(() {
-                            taskList.removeAt(index);
-                            // WidgetsBinding.instance.addPersistentFrameCallback((_) {
-                            //   _updateTaskCounts();
-                            // });
-                          });
-                        },
-                      );
-                    },
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
+                  Card(
+                    elevation: 4,
+                    color: Colors.white,
+                    margin: const EdgeInsets.only(
+                        right: 14.0, top: 10.0, bottom: 15.0),
+                    child: Container(
+                      constraints: const BoxConstraints(
+                        maxWidth: double.infinity,
+                        maxHeight: 150,
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      width: (MediaQuery.of(context).size.width / 2) - 24,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            CupertinoIcons.headphones,
+                            color: Colors.red,
+                            size: 30,
+                            shadows: [
+                              BoxShadow(
+                                color: Colors.black,
+                                blurRadius: 5.0,
+                                spreadRadius: 5.0,
+                                offset: Offset(1.0, 1.0),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 1.0, top: 20.0, right: 40, bottom: 3.0),
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: 'Proyectos \n',
+                                    style: TextStyle(
+                                      color: Colors.black38,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: completedTasks.toString(),
+                                    style: const TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5.0),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(width: 4),
+                      DotsIndicator(
+                        position: 0,
+                        dotsCount: 1,
+                        decorator: const DotsDecorator(),
+                      ),
+                      const Text(
+                        'Tareas del dia',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
-
-      //  Padding(
-      //   padding: const EdgeInsets.all(8.0),
     );
   }
 }

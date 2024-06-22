@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_application/bottomnavigator.dart';
-import 'package:task_application/inicio.dart';
+// import 'package:task_application/inicio.dart';
 // import 'package:task_application/thirdpage.dart';
 
 
