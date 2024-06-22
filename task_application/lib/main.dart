@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_application/firstpage.dart';
+import 'package:task_application/inicio.dart';
 import 'package:task_application/secondscreen.dart';
-import 'package:task_application/thirdpage.dart';
+// import 'package:task_application/thirdpage.dart';
 
 
 void main() {
@@ -11,7 +12,7 @@ void main() {
       routes: {
         '/': (context) => const Firstpage(),
         '/secondpage': (context) => const Secondscreen(),
-        '/thirdpage': (context) => const Thirdpage(),
+        '/thirdpage': (context) => const Inicio(),
         // '/inicio': (context) => const Inicio(),
       },
       debugShowCheckedModeBanner: false,

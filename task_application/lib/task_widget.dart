@@ -41,27 +41,25 @@ class TaskWidget extends StatelessWidget {
             ],
           ),
           
-          child: Expanded(
-            child: Material(
-              clipBehavior: Clip.antiAlias,
-              color: Colors.white,
-              child: ListTile(
-                hoverColor: Colors.blue,
-                leading: Radio(
-                  value: taskCompleted,
-                  onChanged: onchanged,
-                  activeColor: Colors.black,
-                  groupValue: true,
-                ),
-                
-                title: Text(
-                 taskName,
-                  style: const TextStyle(color: Colors.black54, fontSize: 10),
-                ),
-                
-                subtitle: Text(subTitle, textAlign: 
-                TextAlign.left, ),
+          child: Material(
+            clipBehavior: Clip.antiAlias,
+            color: Colors.white,
+            child: ListTile(
+              hoverColor: Colors.blue,
+              leading: Radio(
+                value: taskCompleted,
+                onChanged: onchanged,
+                activeColor: Colors.black,
+                groupValue: true,
               ),
+              
+              title: Text(
+               taskName,
+                style: const TextStyle(color: Colors.black54, fontSize: 10),
+              ),
+              
+              subtitle: Text(subTitle, textAlign: 
+              TextAlign.left, ),
             ),
           ),
         ),
