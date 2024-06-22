@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_application/thirdpage.dart';
+import 'package:task_application/bottomnavigator.dart';
+import 'package:task_application/inicio.dart';
+// import 'package:task_application/thirdpage.dart';
 
 
 class Secondscreen extends StatefulWidget {
@@ -42,7 +44,7 @@ class _SecondscreenState extends State<Secondscreen> {
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Thirdpage()));
+                    MaterialPageRoute(builder: (context) => const BottomNavigator()));
               },
               child: const Text('OK'),
             ),
