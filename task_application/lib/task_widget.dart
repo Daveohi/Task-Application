@@ -9,12 +9,14 @@ class TaskWidget extends StatelessWidget {
       required this.taskCompleted,
       this.onchanged,
       this.onDelete,
+      this.onEdit,
       super.key});
 
   final String taskName, subTitle;
   final bool taskCompleted;
   final Function(bool?)? onchanged;
   final Function(BuildContext)? onDelete;
+  final Function(BuildContext)? onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class TaskWidget extends StatelessWidget {
         padding: const EdgeInsets.only(
           left: 14.0,
           right: 14.0,
-          top: 14.0,
+          top: 10.0,
         ),
         
         child: Slidable(
@@ -34,10 +36,15 @@ class TaskWidget extends StatelessWidget {
                 onPressed: onDelete,
                 icon: Icons.delete,
                 backgroundColor: const Color(0xFF6C63FF),
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(50)),
                 foregroundColor: Colors.white,
                 label: 'Delete',
               ),
+              SlidableAction(
+                onPressed: onEdit,
+                icon: Icons.edit,
+                backgroundColor: const Color(0xFF6C63FF),
+                borderRadius: const BorderRadius.only(topRight: Radius.circular(50)),),
             ],
           ),
           

@@ -32,7 +32,7 @@ class _FirstpageState extends State<Firstpage> {
                 child: Text.rich(
                   textAlign: TextAlign.center,
                   TextSpan(
-                    text: 'iTe damos la \n bienvenida a',
+                    text: 'Welcome to',
                     style: TextStyle(
                       fontFamily: 'Product Sans',
                       color: Colors.black,
@@ -58,7 +58,7 @@ class _FirstpageState extends State<Firstpage> {
           ),
           const Text(
             textAlign: TextAlign.center,
-            'Administra todos tus proyectos y tareas \n en un solo lugar.',
+            'Manage all your projects and tasks in one place.',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w400,
@@ -88,7 +88,7 @@ class _FirstpageState extends State<Firstpage> {
                 ),
               },
               child: const Text(
-                'Comenzar',
+                'Get Started',
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
             ),
@@ -100,13 +100,13 @@ class _FirstpageState extends State<Firstpage> {
               TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                    text: 'Ya tenes una cuenta?',
+                    text: 'Already have an account',
                     style: TextStyle(
                       color: Colors.black54,
                     ),
                   ),
                   TextSpan(
-                    text: ' Iniciar session',
+                    text: ' Sign in',
                     style: TextStyle(color: Colors.black),
                   ),
                 ],

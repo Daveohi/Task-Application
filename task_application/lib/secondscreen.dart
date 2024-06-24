@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:task_application/bottomnavigator.dart';
-// import 'package:task_application/inicio.dart';
-// import 'package:task_application/thirdpage.dart';
 
 
 class Secondscreen extends StatefulWidget {
@@ -24,6 +22,8 @@ class _SecondscreenState extends State<Secondscreen> {
   isLoading() => false;
   bool _isLight = false;
   bool _obscureText = true;
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
 
   void onTap(bool obscureText) {
     setState(() {
@@ -44,7 +44,7 @@ class _SecondscreenState extends State<Secondscreen> {
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const BottomNavigator()));
+                    MaterialPageRoute(builder: (context) => BottomNavigator(fullName: _fullNameController.text,)));
               },
               child: const Text('OK'),
             ),
@@ -54,12 +54,10 @@ class _SecondscreenState extends State<Secondscreen> {
     }
     _formKey.currentState?.save();
   }
+  // TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    // ignore: no_leading_underscores_for_local_identifiers
-    TextEditingController _passwordController = TextEditingController();
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -80,8 +78,9 @@ class _SecondscreenState extends State<Secondscreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 15),
-                const Text('Nombre'),
+                const Text('Name'),
                 TextFormField(
+                  controller: _fullNameController,
                   decoration: const InputDecoration(
                     hintText: 'Enter your Full Name',
                     hintStyle: TextStyle(
@@ -119,7 +118,7 @@ class _SecondscreenState extends State<Secondscreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-                const Text('Contrasena'),
+                const Text('Password'),
                 TextFormField(
                   controller: _passwordController,
                   decoration: InputDecoration(
@@ -142,8 +141,8 @@ class _SecondscreenState extends State<Secondscreen> {
                   ),
                   obscureText: _obscureText,
                   validator: (value) {
-                    if (value!.isEmpty || value.length < 6) {
-                      return 'Password must be at least 6 characters long';
+                    if (value!.isEmpty || value.length < 8) {
+                      return 'Password must be at least 8 characters long';
                     }
                     return null;
                   },
@@ -161,15 +160,17 @@ class _SecondscreenState extends State<Secondscreen> {
                       activeColor: Colors.black,
                     ),
                     const Text(
-                      'Debe tener al menos 8 caracteres',
+                      'Must be at least 8 characters long',
                       style: TextStyle(color: Colors.blue),
                     ),
                     Row(
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(
-                            left: 50,
+                            left: 40,
+                            
                           ),
+                          
                         ),
                         Switch.adaptive(
                           activeColor: const Color(0xFF6C63FF),
@@ -188,13 +189,13 @@ class _SecondscreenState extends State<Secondscreen> {
                   TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: 'Aceptar',
+                        text: 'Accept',
                         style: TextStyle(
                           color: Colors.black,
                         ),
                       ),
                       TextSpan(
-                        text: ' Terminos y condiciones',
+                        text: ' Terms & Conditions',
                         style: TextStyle(color: Colors.blue),
                       ),
                     ],
