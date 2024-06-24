@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:task_application/inicio.dart';
 
 class BottomNavigator extends StatefulWidget {
-  const BottomNavigator({super.key});
+  const BottomNavigator({super.key, required this.fullName});
+
+  final String fullName;
 
   @override
   State<BottomNavigator> createState() => _BottomNavigatorState();
@@ -11,20 +13,25 @@ class BottomNavigator extends StatefulWidget {
 class _BottomNavigatorState extends State<BottomNavigator> {
   int _selectedTab = 0;
 
-  final List _pages = [
-    const Center(
-      child: Inicio(),
-    ),
-    const Center(
-      child: Text("Projects"),
-    ),
-    const Center(
-      child: Text("Calendar"),
-    ),
-    const Center(
-      child: Text("Menu"),
-    ),
-  ];
+  late List _pages;
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+       Center(
+        child: Inicio(fullName: widget.fullName),
+      ),
+      const Center(
+        child: Text("Projects"),
+      ),
+      const Center(
+        child: Text("Calendar"),
+      ),
+      const Center(
+        child: Text("Menu"),
+      ),
+    ];
+  }
 
   _changeTab(int index) {
     setState(() {
@@ -38,9 +45,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        title: const Text(
-          'June 21, 2024 \nHola, David 👋',
-          style: TextStyle(
+        title:  Text(
+          'Hola, \n${widget.fullName} 👋',
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -73,12 +80,13 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         unselectedItemColor: Colors.grey,
         showSelectedLabels: true,
         showUnselectedLabels: true,
+        backgroundColor: const Color(0xFF6C63FF),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.file_copy), label: "Proyectos"),
+              icon: Icon(Icons.file_copy), label: "Projects"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_month), label: "Calendario"),
+              icon: Icon(Icons.calendar_month), label: "Calendar"),
           BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),
         ],
       ),

@@ -6,13 +6,8 @@ import 'package:task_application/dialog_widget.dart';
 import 'package:task_application/task_widget.dart';
 
 class Inicio extends StatefulWidget {
-  const Inicio(
-      {
-      // required this.onUpdateTotalTasks,
-      // required this.onUpdateCompletedTasks,
-      super.key});
+  const Inicio({super.key, required String fullName});
 
-  // final ValueChanged<int> onUpdateTotalTasks, onUpdateCompletedTasks;
   @override
   State<Inicio> createState() => _InicioState();
 }
@@ -34,7 +29,6 @@ class _InicioState extends State<Inicio> {
   void taskCompleted(bool? value, int index) {
     setState(() {
       taskList[index][2] = !taskList[index][2];
-      
     });
     // return taskCount;
   }
@@ -100,7 +94,6 @@ class _InicioState extends State<Inicio> {
       backgroundColor: const Color(0xfafafafa),
       body: Stack(
         clipBehavior: Clip.antiAlias,
-        
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 220.0),
@@ -110,16 +103,30 @@ class _InicioState extends State<Inicio> {
               itemCount: taskList.length,
               itemBuilder: (context, index) {
                 return TaskWidget(
-                  taskName: taskList[index][0],
-                  subTitle: taskList[index][1],
-                  taskCompleted: taskList[index][2],
-                  onchanged: (value) => taskCompleted(value, index),
-                  onDelete: (context) {
-                    setState(() {
-                      taskList.removeAt(index);
+                    taskName: taskList[index][0],
+                    subTitle: taskList[index][1],
+                    taskCompleted: taskList[index][2],
+                    onchanged: (value) => taskCompleted(value, index),
+                    onDelete: (context) {
+                      setState(() {
+                        taskList.removeAt(index);
+                      });
+                    },
+                    onEdit: (context) {
+                      setState(() {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return DialogWidget(
+                              taskController: taskController,
+                              subtitleController: subtitleController,
+                              onSave: saveNewTask,
+                              onCancelButton: cancelTask,
+                            );
+                          },
+                        );
+                      });
                     });
-                  },
-                );
               },
             ),
           ),
@@ -163,7 +170,7 @@ class _InicioState extends State<Inicio> {
                               TextSpan(
                                 children: [
                                   const TextSpan(
-                                    text: 'Nuevas toreas \n',
+                                    text: 'No. of Tasks \n',
                                     style: TextStyle(
                                       color: Colors.black38,
                                     ),
@@ -218,7 +225,7 @@ class _InicioState extends State<Inicio> {
                               TextSpan(
                                 children: [
                                   const TextSpan(
-                                    text: 'Proyectos \n',
+                                    text: 'Task Completed \n',
                                     style: TextStyle(
                                       color: Colors.black38,
                                     ),
@@ -244,20 +251,26 @@ class _InicioState extends State<Inicio> {
               Column(
                 children: [
                   Row(
+                    
                     children: [
-                      const SizedBox(width: 4),
+                      const SizedBox(width: 2),
                       DotsIndicator(
                         position: 0,
                         dotsCount: 1,
                         decorator: const DotsDecorator(),
                       ),
                       const Text(
-                        'Tareas del dia',
+                        'Task of the day',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      
+                      const Text(
+                        '                                       Swipe left to delete/edit task',
+                         style: TextStyle(fontSize: 11),
                       ),
                     ],
                   ),
