@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_application/bottomnavigator.dart';
 
-
 class Secondscreen extends StatefulWidget {
   const Secondscreen(
       {this.onChanged,
@@ -43,8 +42,12 @@ class _SecondscreenState extends State<Secondscreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BottomNavigator(fullName: _fullNameController.text,)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BottomNavigator(
+                              fullName: _fullNameController.text,
+                            )));
               },
               child: const Text('OK'),
             ),
@@ -64,7 +67,7 @@ class _SecondscreenState extends State<Secondscreen> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         title: const Text(
-          'Crear una cuenta',
+          'Create Account',
           style: TextStyle(fontSize: 35),
           maxLines: 2,
         ),
@@ -160,17 +163,15 @@ class _SecondscreenState extends State<Secondscreen> {
                       activeColor: Colors.black,
                     ),
                     const Text(
-                      'Must be at least 8 characters long',
+                      'Accept Terms & Conditions',
                       style: TextStyle(color: Colors.blue),
                     ),
                     Row(
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(
-                            left: 40,
-                            
+                            left: 90,
                           ),
-                          
                         ),
                         Switch.adaptive(
                           activeColor: const Color(0xFF6C63FF),
@@ -189,13 +190,13 @@ class _SecondscreenState extends State<Secondscreen> {
                   TextSpan(
                     children: <TextSpan>[
                       TextSpan(
-                        text: 'Accept',
+                        text: 'Password must be at ',
                         style: TextStyle(
                           color: Colors.black,
                         ),
                       ),
                       TextSpan(
-                        text: ' Terms & Conditions',
+                        text: ' least 8 characters long',
                         style: TextStyle(color: Colors.blue),
                       ),
                     ],
@@ -218,10 +219,9 @@ class _SecondscreenState extends State<Secondscreen> {
                     ),
                     onPressed: () {
                       _submit();
-                    
                     },
                     child: const Text(
-                      'Registrarme',
+                      'Register',
                       style: TextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
@@ -233,8 +233,9 @@ class _SecondscreenState extends State<Secondscreen> {
                 const Center(
                   child: Text(
                     textAlign: TextAlign.center,
-                    '-------------------- O registrate con --------------------',
-                    style: TextStyle(color: Colors.black54, fontSize: 13, height: 2),
+                    '-------------------- Or register with --------------------',
+                    style: TextStyle(
+                        color: Colors.black54, fontSize: 13, height: 2),
                   ),
                 ),
                 Center(
@@ -251,18 +252,17 @@ class _SecondscreenState extends State<Secondscreen> {
                     ),
                     onPressed: () {
                       _submit();
-                    
                     },
                     child: const Text(
-                            ' Google',
-                            style: TextStyle(color: Colors.black54, fontSize: 30),
+                      ' Google',
+                      style: TextStyle(color: Colors.black54, fontSize: 30),
                     ),
                   ),
                 ),
                 //   onPressed: () {
                 //     _submit();
                 //   },
-                //   
+                //
                 //   ),
                 // ),
                 const SizedBox(
@@ -273,13 +273,13 @@ class _SecondscreenState extends State<Secondscreen> {
                     TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Ya tenes una cuenta?',
+                          text: 'Already have an account? ',
                           style: TextStyle(
                             color: Colors.black54,
                           ),
                         ),
                         TextSpan(
-                          text: ' Iniciar session',
+                          text: ' Log in',
                           style: TextStyle(color: Colors.black),
                         ),
                       ],

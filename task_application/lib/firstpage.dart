@@ -100,7 +100,7 @@ class _FirstpageState extends State<Firstpage> {
               TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                    text: 'Already have an account',
+                    text: 'Already have an account? ',
                     style: TextStyle(
                       color: Colors.black54,
                     ),
