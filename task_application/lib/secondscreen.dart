@@ -32,32 +32,58 @@ class _SecondscreenState extends State<Secondscreen> {
 
   void _submit() {
     final isValid = _formKey.currentState!.validate();
-    if (isValid && _isChecked && _isLight) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Success'),
-          content: const Text('Account Created Successfully'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BottomNavigator(
-                              fullName: _fullNameController.text,
-                            )));
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+    if (!isValid) return;
+    if (!_isChecked) {
+      _showErrorMessage("You must accept the Terms & Conditions.");
+      return;
     }
+    if (!_isLight) {
+      _showErrorMessage("You must swipe the slider to the right.");
+      return;
+    }
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Success'),
+        content: const Text('Account Created Successfully'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BottomNavigator(
+                    fullName: _fullNameController.text,
+                  ),
+                ),
+              );
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
     _formKey.currentState?.save();
   }
-  // TextEditingController _passwordController = TextEditingController();
+
+  void _showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,10 +184,14 @@ class _SecondscreenState extends State<Secondscreen> {
                       onChanged: (bool? value) {
                         setState(() {
                           _isChecked = true;
-                        });
+                        }
+                        
+                        );
+                        ValueNotifier(value);
                       },
                       activeColor: Colors.black,
                     ),
+                    
                     const Text(
                       'Accept Terms & Conditions',
                       style: TextStyle(color: Colors.blue),
