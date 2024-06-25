@@ -56,6 +56,7 @@ class _InicioState extends State<Inicio> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +121,13 @@ class _InicioState extends State<Inicio> {
                             return DialogWidget(
                               taskController: taskController,
                               subtitleController: subtitleController,
-                              onSave: saveNewTask,
+                              onSave: () {
+                                setState(() {
+                                  taskList[index][0] = taskController.text;
+                                  taskList[index][1] = subtitleController.text;
+                                });
+                                Navigator.pop(context);
+                              },
                               onCancelButton: cancelTask,
                             );
                           },
@@ -251,14 +258,8 @@ class _InicioState extends State<Inicio> {
               Column(
                 children: [
                   Row(
-                    
                     children: [
                       const SizedBox(width: 2),
-                      DotsIndicator(
-                        position: 0,
-                        dotsCount: 1,
-                        decorator: const DotsDecorator(),
-                      ),
                       const Text(
                         'Task of the day',
                         style: TextStyle(
@@ -267,10 +268,14 @@ class _InicioState extends State<Inicio> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      
+                      DotsIndicator(
+                        position: 0,
+                        dotsCount: 1,
+                        decorator: const DotsDecorator(),
+                      ),
                       const Text(
                         '                                       Swipe left to delete/edit task',
-                         style: TextStyle(fontSize: 11),
+                        style: TextStyle(fontSize: 11),
                       ),
                     ],
                   ),
