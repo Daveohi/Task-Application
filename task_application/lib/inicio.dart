@@ -43,6 +43,8 @@ class _InicioState extends State<Inicio> {
   }
 
   void createNewTask() {
+    taskController.text = '';
+    subtitleController.text = '';
     showDialog(
       context: context,
       builder: (context) {
@@ -56,6 +58,28 @@ class _InicioState extends State<Inicio> {
     );
   }
 
+  void editTask(int index) {
+    taskController.text = taskList[index][0];
+    subtitleController.text = taskList[index][1];
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DialogWidget(
+          taskController: taskController,
+          subtitleController: subtitleController,
+          onSave: () {
+            setState(() {
+              taskList[index][0] = taskController.text;
+              taskList[index][1] = subtitleController.text;
+            });
+            Navigator.pop(context);
+          },
+          onCancelButton: cancelTask,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,36 +128,19 @@ class _InicioState extends State<Inicio> {
               itemCount: taskList.length,
               itemBuilder: (context, index) {
                 return TaskWidget(
-                    taskName: taskList[index][0],
-                    subTitle: taskList[index][1],
-                    taskCompleted: taskList[index][2],
-                    onchanged: (value) => taskCompleted(value, index),
-                    onDelete: (context) {
-                      setState(() {
-                        taskList.removeAt(index);
-                      });
-                    },
-                    onEdit: (context) {
-                      setState(() {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return DialogWidget(
-                              taskController: taskController,
-                              subtitleController: subtitleController,
-                              onSave: () {
-                                setState(() {
-                                  taskList[index][0] = taskController.text;
-                                  taskList[index][1] = subtitleController.text;
-                                });
-                                Navigator.pop(context);
-                              },
-                              onCancelButton: cancelTask,
-                            );
-                          },
-                        );
-                      });
+                  taskName: taskList[index][0],
+                  subTitle: taskList[index][1],
+                  taskCompleted: taskList[index][2],
+                  onchanged: (value) => taskCompleted(value, index),
+                  onDelete: (context) {
+                    setState(() {
+                      taskList.removeAt(index);
                     });
+                  },
+                  onEdit: (context) {
+                    editTask(index);
+                  },
+                );
               },
             ),
           ),
@@ -260,6 +267,11 @@ class _InicioState extends State<Inicio> {
                   Row(
                     children: [
                       const SizedBox(width: 2),
+                      DotsIndicator(
+                        position: 0,
+                        dotsCount: 1,
+                        decorator: const DotsDecorator(),
+                      ),
                       const Text(
                         'Task of the day',
                         style: TextStyle(
@@ -267,11 +279,6 @@ class _InicioState extends State<Inicio> {
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      DotsIndicator(
-                        position: 0,
-                        dotsCount: 1,
-                        decorator: const DotsDecorator(),
                       ),
                       const Text(
                         '                                       Swipe left to delete/edit task',

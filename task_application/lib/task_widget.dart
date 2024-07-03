@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-// import 'package:task_application/card.dart';
 
 class TaskWidget extends StatelessWidget {
   const TaskWidget(
@@ -74,5 +73,4 @@ class TaskWidget extends StatelessWidget {
     );
   }
 }
-
 

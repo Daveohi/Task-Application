@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_application/Project%20Page/pages/intropage.dart';
 import 'package:task_application/inicio.dart';
 
 class BottomNavigator extends StatefulWidget {
@@ -22,7 +23,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         child: Inicio(fullName: widget.fullName),
       ),
       const Center(
-        child: Text("Projects"),
+        child: IntroPage(),
       ),
       const Center(
         child: Text("Calendar"),
@@ -84,7 +85,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.file_copy), label: "Projects"),
+              icon: Icon(Icons.shopping_cart), label: "Shop"),
           BottomNavigationBarItem(
               icon: Icon(Icons.calendar_month), label: "Calendar"),
           BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menu"),

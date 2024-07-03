@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:task_application/firstpage.dart';
 import 'package:task_application/inicio.dart';
 import 'package:task_application/secondscreen.dart';
-// import 'package:task_application/thirdpage.dart';
 
 void main() {
   const String fullName = 'Your Full Name';
@@ -12,10 +11,8 @@ void main() {
       routes: {
         '/': (context) => const Firstpage(),
         '/secondpage': (context) => const Secondscreen(),
-        '/thirdpage': (context) => const Inicio(
-fullName: fullName,
+        '/thirdpage': (context) => const Inicio(fullName: fullName,
             ),
-        // '/inicio': (context) => const Inicio(),
       },
       debugShowCheckedModeBanner: false,
     ),

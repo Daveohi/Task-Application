@@ -64,6 +64,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/logo.jpg
+    - assets/images/dev-shops_logo.png
+    - assets/images/apple.webp
+    - assets/images/alienware.jpg
+    - assets/images/dell.webp
+    - assets/images/laptop.png
+    - assets/images/samsung.webp
+    - assets/images/omen.webp
+    - assets/images/microsoft.png
     - assets/undraw.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
