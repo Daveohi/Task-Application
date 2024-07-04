@@ -2,8 +2,11 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:get/get.dart';
 import 'package:task_application/dialog_widget.dart';
 import 'package:task_application/task_widget.dart';
+
+import 'controllers/task_controller.dart';
 
 class Inicio extends StatefulWidget {
   const Inicio({super.key, required String fullName});
@@ -13,43 +16,39 @@ class Inicio extends StatefulWidget {
 }
 
 class _InicioState extends State<Inicio> {
-  final TextEditingController taskController = TextEditingController();
+  final TaskController taskController = Get.put(TaskController());
+  final TextEditingController taskControllerText = TextEditingController();
   final TextEditingController subtitleController = TextEditingController();
-  List taskList = [
-    ['E-Learning App', 'Diseño de Onboarding', false],
-    ['Car Rental Website', 'Landing Page', false],
-  ];
+  
 
   void cancelTask() {
     Navigator.pop(context);
   }
 
-  int get completedTasks => taskList.where((task) => task[2]).length;
-
-  void taskCompleted(bool? value, int index) {
-    setState(() {
-      taskList[index][2] = !taskList[index][2];
-    });
-    // return taskCount;
-  }
+  // void taskCompleted(bool? value, int index) {
+  //   setState(() {
+  //     taskController.tasks[index].isCompleted = !taskController.tasks[index].isCompleted;
+  //     // taskList[index][2] = !taskList[index][2];
+  //   });
+  // }
 
   void saveNewTask() {
     setState(() {
-      taskList.add([taskController.text, subtitleController.text, false]);
-      taskController.clear();
+      taskController.addTask(taskControllerText.text, subtitleController.text);
+      taskControllerText.clear();
       subtitleController.clear();
     });
     Navigator.pop(context);
   }
 
   void createNewTask() {
-    taskController.text = '';
+    taskControllerText.text = '';
     subtitleController.text = '';
     showDialog(
       context: context,
       builder: (context) {
         return DialogWidget(
-          taskController: taskController,
+          taskController: taskControllerText,
           subtitleController: subtitleController,
           onSave: saveNewTask,
           onCancelButton: cancelTask,
@@ -59,19 +58,19 @@ class _InicioState extends State<Inicio> {
   }
 
   void editTask(int index) {
-    taskController.text = taskList[index][0];
-    subtitleController.text = taskList[index][1];
+    taskControllerText.text = taskController.tasks[index].title;
+    subtitleController.text = taskController.tasks[index].description;
 
     showDialog(
       context: context,
       builder: (context) {
         return DialogWidget(
-          taskController: taskController,
+          taskController: taskControllerText,
           subtitleController: subtitleController,
           onSave: () {
             setState(() {
-              taskList[index][0] = taskController.text;
-              taskList[index][1] = subtitleController.text;
+              taskController.updateTask(
+                  index, taskControllerText.text, subtitleController.text);
             });
             Navigator.pop(context);
           },
@@ -125,21 +124,23 @@ class _InicioState extends State<Inicio> {
             child: ListView.builder(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
               shrinkWrap: true,
-              itemCount: taskList.length,
+              itemCount: taskController.tasks.length,
               itemBuilder: (context, index) {
                 return TaskWidget(
-                  taskName: taskList[index][0],
-                  subTitle: taskList[index][1],
-                  taskCompleted: taskList[index][2],
-                  onchanged: (value) => taskCompleted(value, index),
+                  index: index,
+                  taskName: taskController.tasks[index].title,
+                  subTitle: taskController.tasks[index].description,
+                  taskCompleted: taskController.tasks[index].isCompleted,
+                  onchanged: (value) => taskController.toggleTaskStatus(index),
                   onDelete: (context) {
                     setState(() {
-                      taskList.removeAt(index);
+                      taskController.deleteTask(index);
                     });
                   },
                   onEdit: (context) {
                     editTask(index);
                   },
+                  // index: index,
                 );
               },
             ),
@@ -190,7 +191,8 @@ class _InicioState extends State<Inicio> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: taskList.length.toString(),
+                                    text:
+                                        taskController.tasks.length.toString(),
                                     style: const TextStyle(
                                         color: Colors.black54,
                                         fontSize: 25,
@@ -245,7 +247,8 @@ class _InicioState extends State<Inicio> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: completedTasks.toString(),
+                                    text: taskController.completedTasks
+                                        .toString(),
                                     style: const TextStyle(
                                         color: Colors.black54,
                                         fontSize: 25,

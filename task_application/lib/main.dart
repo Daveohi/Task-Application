@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_application/firstpage.dart';
 import 'package:task_application/inicio.dart';
 import 'package:task_application/secondscreen.dart';
@@ -6,7 +7,7 @@ import 'package:task_application/secondscreen.dart';
 void main() {
   const String fullName = 'Your Full Name';
   runApp(
-    MaterialApp(
+    GetMaterialApp(
       initialRoute: '/',
       routes: {
         '/': (context) => const Firstpage(),
