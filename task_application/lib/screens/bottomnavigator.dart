@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_application/Project%20Page/pages/intropage.dart';
-import 'package:task_application/inicio.dart';
+
+import 'inicio.dart';
+
 
 class BottomNavigator extends StatefulWidget {
   const BottomNavigator({super.key, required this.fullName});
@@ -23,7 +24,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         child: Inicio(fullName: widget.fullName),
       ),
       const Center(
-        child: IntroPage(),
+        child: Text("Projects"),
       ),
       const Center(
         child: Text("Calendar"),

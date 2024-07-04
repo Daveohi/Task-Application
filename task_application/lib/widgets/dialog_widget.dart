@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_application/dialog_button.dart';
+
+import 'dialog_button.dart';
 
 class DialogWidget extends StatelessWidget {
   const DialogWidget(

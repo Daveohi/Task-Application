@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_application/bottomnavigator.dart';
+
+import 'bottomnavigator.dart';
 
 class Secondscreen extends StatefulWidget {
   const Secondscreen(

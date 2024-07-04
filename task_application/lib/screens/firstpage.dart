@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_application/secondscreen.dart';
+
+import 'secondscreen.dart'; 
 
 class Firstpage extends StatefulWidget {
   const Firstpage({super.key});

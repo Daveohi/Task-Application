@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:task_application/firstpage.dart';
-import 'package:task_application/inicio.dart';
-import 'package:task_application/secondscreen.dart';
+import 'package:get/get.dart';
+import 'screens/firstpage.dart';
+import 'screens/inicio.dart';
+import 'screens/secondscreen.dart';
 
 void main() {
   const String fullName = 'Your Full Name';
   runApp(
-    MaterialApp(
+    GetMaterialApp(
       initialRoute: '/',
       routes: {
         '/': (context) => const Firstpage(),
         '/secondpage': (context) => const Secondscreen(),
-        '/thirdpage': (context) => const Inicio(fullName: fullName,
+        '/thirdpage': (context) => const Inicio(
+              fullName: fullName,
             ),
       },
       debugShowCheckedModeBanner: false,
@@ -26,9 +28,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'First Demo',
-      theme: ThemeData(fontFamily: 'Product Sans'),
+    return GetMaterialApp(
+      title: 'Task Application',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: const Firstpage(),
       debugShowCheckedModeBanner: false,
     );
